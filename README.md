@@ -21,7 +21,7 @@ allprojects {
 
 ```groovy
 dependencies {
-  implementation 'com.github.Amal92:Trimmy:1.0.0'
+  implementation 'com.github.Amal92:Trimmy:1.0.1'
 }
 ```
 
