@@ -1,8 +1,10 @@
 This code is built on top of [VideoTrimmer](https://github.com/AndroidDeveloperLB/VideoTrimmer). 
+
 ### Changes from original:
 1. The UI for time selector info is modified.
 2. The range selector is forced to begin from 00:00. In the original the range bar was positioned in the center.
 3. The library used to trim the video is changed to [MP4Composer](https://github.com/MasayukiSuda/Mp4Composer-android) from [MP4Parser](https://github.com/sannies/mp4parser).
+4. VideoTrimmerView is moved into the library for quick and easy setup.
 
 # Set up
 
