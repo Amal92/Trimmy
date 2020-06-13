@@ -1,7 +1,6 @@
-# Usage
+# Set up
 
-*Step 1:* Add the JitPack repository to your build file
-Add it in your root build.gradle at the end of repositories:
+*Step 1:* Add the JitPack repository to your root build file.
 
 ```groovy
 allprojects {
@@ -25,8 +24,7 @@ dependencies {
  <com.amp.trimmy.VideoTrimmerView
         android:id="@+id/videoTrimmerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
   />
 ```
 2. Use the following methods to use VideoTrimmerView
