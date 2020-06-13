@@ -1,3 +1,6 @@
+[![](https://jitpack.io/v/Amal92/Trimmy.svg)](https://jitpack.io/#Amal92/Trimmy)
+
+
 This code is built on top of [VideoTrimmer](https://github.com/AndroidDeveloperLB/VideoTrimmer). 
 
 ### Changes from original:
