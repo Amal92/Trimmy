@@ -41,6 +41,7 @@ dependencies {
 2. Use the following methods to use VideoTrimmerView
 ```kotlin
  videoTrimmerView.setMaxDurationInMs(10 * 1000)
+ videoTrimmerView.setMinDurationInMs(1 * 1000)
  videoTrimmerView.setOnK4LVideoListener(this)
  videoTrimmerView.setDestinationFile(trimmedVideoFile)
  videoTrimmerView.setVideoURI(inputVideoUri)

@@ -24,6 +24,7 @@ class TrimmerActivity : AppCompatActivity(), VideoTrimmingListener {
     }
 
     videoTrimmerView.setMaxDurationInMs(10 * 1000)
+    videoTrimmerView.setMinDurationInMs(1 * 1000)
     videoTrimmerView.setOnK4LVideoListener(this)
     val parentFolder = File(Environment.getExternalStorageDirectory(), "Video Trimmer Library")
     if (!parentFolder.exists()) {
