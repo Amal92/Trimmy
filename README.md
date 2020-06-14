@@ -9,7 +9,7 @@ This code is built on top of [VideoTrimmer](https://github.com/AndroidDeveloperL
 3. The library used to trim the video is changed to [MP4Composer](https://github.com/MasayukiSuda/Mp4Composer-android) from [MP4Parser](https://github.com/sannies/mp4parser).
 4. VideoTrimmerView is moved into the library for quick and easy setup.
 
-# Set up
+# Gradle
 
 *Step 1:* Add the JitPack repository to your root build file.
 
@@ -45,7 +45,16 @@ dependencies {
  videoTrimmerView.setOnK4LVideoListener(this)
  videoTrimmerView.setDestinationFile(trimmedVideoFile)
  videoTrimmerView.setVideoURI(inputVideoUri)
+ 
+ // Use this is control the visibility of time duration displayed
  videoTrimmerView.setVideoInformationVisibility(true)
+ 
+ // Use this to set if the trimmed video should be mute
+ videoTrimmerView.shouldMute(true) // Default is false
+ 
+ // Use this to set the time scale of the trimmed video
+ // Value should be in the range of -8(X) to 8(X)
+ videoTrimmerView.setTimeScale(2) // Default is 1
  
  // use this method to start trimming the selected time frame
  videoTrimmerView.initiateTrimming()

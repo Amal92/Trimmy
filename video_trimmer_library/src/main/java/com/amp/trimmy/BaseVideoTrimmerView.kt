@@ -78,6 +78,8 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
     private var endPosition = 0
     private var originSizeFile: Long = 0
     private var resetSeekBar = true
+    private var timeScale: Int = 1
+    private var shouldMute: Boolean = false
     private val messageHandler = MessageHandler(this)
 
     init {
@@ -204,13 +206,14 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
                 mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
             )
         if (timeVideo < minDurationInMs) {
-           /* if (metadataKeyDuration - endPosition > MIN_TIME_FRAME - timeVideo) {
-                endPosition += MIN_TIME_FRAME - timeVideo
-            } else if (startPosition > MIN_TIME_FRAME - timeVideo) {
-                startPosition -= MIN_TIME_FRAME - timeVideo
-            }*/
-            val sec = if(minDurationInMs/1000  == 1) "second" else "seconds"
-            Toast.makeText(context,"Duration must be atleast ${minDurationInMs/1000} $sec.",Toast.LENGTH_SHORT).show()
+            /* if (metadataKeyDuration - endPosition > MIN_TIME_FRAME - timeVideo) {
+                 endPosition += MIN_TIME_FRAME - timeVideo
+             } else if (startPosition > MIN_TIME_FRAME - timeVideo) {
+                 startPosition -= MIN_TIME_FRAME - timeVideo
+             }*/
+            val sec = if (minDurationInMs / 1000 == 1) "second" else "seconds"
+            Toast.makeText(context, "Duration must be atleast ${minDurationInMs / 1000} $sec.", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 
@@ -220,7 +223,8 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
 
         Mp4Composer(getPath(src)!!, dstFile!!.path)
             .trim(startPosition.toLong(), endPosition.toLong())
-
+            .mute(shouldMute)
+            .timeScale(timeScale)
             .listener(object : Mp4Composer.Listener {
                 override fun onFailed(exception: Exception?) {
                     videoTrimmingListener!!.onTrimFailed(exception)
@@ -394,6 +398,23 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
     private fun setProgressBarPosition(position: Int) {
         if (duration > 0) {
         }
+    }
+
+    /**
+     * Set the time scale of the trimmed video.
+     * @param timeScale should be in the range of -8 to 8, default = 1
+     */
+    fun setTimeScale(timeScale: Int) {
+        this.timeScale = timeScale
+    }
+
+    /**
+     * Set if the trimmed video should be muted.
+     *
+     * @param shouldMute true/false, default = false
+     */
+    fun shouldMute(shouldMute: Boolean) {
+        this.shouldMute = shouldMute
     }
 
     /**
