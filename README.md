@@ -8,6 +8,7 @@ This code is built on top of [VideoTrimmer](https://github.com/AndroidDeveloperL
 2. The range selector is forced to begin from 00:00. In the original the range bar was positioned in the center.
 3. The library used to trim the video is changed to [MP4Composer](https://github.com/MasayukiSuda/Mp4Composer-android) from [MP4Parser](https://github.com/sannies/mp4parser).
 4. VideoTrimmerView is moved into the library for quick and easy setup.
+5. Fixed TimeLineView not getting updated issue when a new video is loaded again.
 
 # Gradle
 
