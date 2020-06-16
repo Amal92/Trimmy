@@ -292,6 +292,7 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
                 videoView.seekTo(startPosition)
             }
             messageHandler.sendEmptyMessage(SHOW_PROGRESS)
+            videoView.requestFocus()
             videoView.start()
         }
     }

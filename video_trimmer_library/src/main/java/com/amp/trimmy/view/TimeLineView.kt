@@ -47,13 +47,16 @@ open class TimeLineView @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
         super.onSizeChanged(w, h, oldW, oldH)
-        if (w != oldW)
-            getBitmap(w, h)
+        /*if (w != oldW)
+            getBitmap(w, h)*/
     }
 
     private fun getBitmap(viewWidth: Int, viewHeight: Int) {
         // Set thumbnail properties (Thumbs are squares)
         @Suppress("UnnecessaryVariable")
+        if (videoUri == null)
+            return
+
         val thumbSize = viewHeight
         val numThumbs = Math.ceil((viewWidth.toFloat() / thumbSize).toDouble()).toInt()
         bitmapList.clear()
@@ -123,6 +126,6 @@ open class TimeLineView @JvmOverloads constructor(context: Context, attrs: Attri
 
     fun setVideo(data: Uri) {
         videoUri = data
-        postInvalidate()
+        getBitmap(viewWidth = width, viewHeight = height)
     }
 }
