@@ -123,6 +123,6 @@ open class TimeLineView @JvmOverloads constructor(context: Context, attrs: Attri
 
     fun setVideo(data: Uri) {
         videoUri = data
-        invalidate()
+        postInvalidate()
     }
 }
