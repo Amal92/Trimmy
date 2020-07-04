@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/VideoTrimmer.iml" filepath="$PROJECT_DIR$/.idea/VideoTrimmer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Sample-VideoTrimmer.iml" filepath="$PROJECT_DIR$/.idea/modules/Sample-VideoTrimmer.iml" group="VideoTrimmer" />
       <module fileurl="file://$PROJECT_DIR$/VideoTrimmer.iml" filepath="$PROJECT_DIR$/VideoTrimmer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/video_trimmer_library/video_trimmer_library.iml" filepath="$PROJECT_DIR$/video_trimmer_library/video_trimmer_library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="VideoTrimmer/app" />
+      <module fileurl="file://$PROJECT_DIR$/video_trimmer_library/video_trimmer_library.iml" filepath="$PROJECT_DIR$/video_trimmer_library/video_trimmer_library.iml" group="VideoTrimmer/video_trimmer_library" />
     </modules>
   </component>
 </project>

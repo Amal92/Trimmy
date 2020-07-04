@@ -1,15 +1,15 @@
 package com.amp.video_trimmer_sample
 
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.amp.trimmy.WaterMarkPosition
 import com.amp.trimmy.interfaces.VideoTrimmingListener
-import kotlinx.android.synthetic.main.activity_trimmer.trim_btn
-import kotlinx.android.synthetic.main.activity_trimmer.trimmingProgressView
-import kotlinx.android.synthetic.main.activity_trimmer.videoTrimmerView
+import kotlinx.android.synthetic.main.activity_trimmer.*
 import java.io.File
 
 class TrimmerActivity : AppCompatActivity(), VideoTrimmingListener {
@@ -33,9 +33,13 @@ class TrimmerActivity : AppCompatActivity(), VideoTrimmingListener {
     val fileName = "trimmedVideo_${System.currentTimeMillis()}.mp4"
     val trimmedVideoFile = File(parentFolder, fileName)
     videoTrimmerView.setDestinationFile(trimmedVideoFile)
-    videoTrimmerView.setVideoURI(inputVideoUri)
-    videoTrimmerView.setVideoInformationVisibility(true)
 
+    videoTrimmerView.setVideoInformationVisibility(true)
+    videoTrimmerView.setWaterMark(BitmapFactory.decodeResource(resources, R.drawable.text_logo)
+      ,WaterMarkPosition.RIGHT_BOTTOM,20,20)
+    videoTrimmerView.post {
+      videoTrimmerView.setVideoURI(inputVideoUri)
+    }
     trim_btn.setOnClickListener {
       videoTrimmerView.initiateTrimming()
     }

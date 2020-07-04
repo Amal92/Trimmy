@@ -28,6 +28,7 @@ package com.amp.trimmy
 import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
 import android.net.Uri
@@ -43,6 +44,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.annotation.UiThread
+import com.amp.trimmy.filters.GlCustomWatermarkFilter
 import com.amp.trimmy.interfaces.OnProgressVideoListener
 import com.amp.trimmy.interfaces.OnRangeSeekBarListener
 import com.amp.trimmy.interfaces.VideoTrimmingListener
@@ -51,6 +53,7 @@ import com.amp.trimmy.utils.UiThreadExecutor
 import com.amp.trimmy.view.RangeSeekBarView
 import com.amp.trimmy.view.TimeLineView
 import com.daasuu.mp4compose.composer.Mp4Composer
+import com.daasuu.mp4compose.filter.GlFilter
 import java.io.File
 import java.lang.ref.WeakReference
 
@@ -81,6 +84,7 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
     private var timeScale: Int = 1
     private var shouldMute: Boolean = false
     private val messageHandler = MessageHandler(this)
+    private var filter: GlFilter = GlFilter()
 
     init {
         initRootView()
@@ -212,7 +216,11 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
                  startPosition -= MIN_TIME_FRAME - timeVideo
              }*/
             val sec = if (minDurationInMs / 1000 == 1) "second" else "seconds"
-            Toast.makeText(context, "Duration must be atleast ${minDurationInMs / 1000} $sec.", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                context,
+                "Duration must be atleast ${minDurationInMs / 1000} $sec.",
+                Toast.LENGTH_SHORT
+            )
                 .show()
             return
         }
@@ -225,6 +233,7 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
             .trim(startPosition.toLong(), endPosition.toLong())
             .mute(shouldMute)
             .timeScale(timeScale)
+            .filter(filter)
             .listener(object : Mp4Composer.Listener {
                 override fun onFailed(exception: Exception?) {
                     videoTrimmingListener!!.onTrimFailed(exception)
@@ -399,6 +408,30 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
     private fun setProgressBarPosition(position: Int) {
         if (duration > 0) {
         }
+    }
+
+    /**
+     * Set watermark in a given position on the video.
+     *
+     * @param bitmap The watermark bitmap to place on the video
+     * @param waterMarkPosition The position in the video to place the watermark. Use [WaterMarkPosition] for positions
+     * @param waterMarkSizePercentage The size of the watermark in proportion to the video size
+     * @param waterMarkPadding The padding dimension to be applied to the sides of the watermark
+     */
+    fun setWaterMark(
+        bitmap: Bitmap,
+        waterMarkPosition: WaterMarkPosition,
+        waterMarkSizePercentage: Int,
+        waterMarkPadding: Int
+    ) {
+        val position = when (waterMarkPosition) {
+            WaterMarkPosition.LEFT_TOP -> GlCustomWatermarkFilter.Position.LEFT_TOP
+            WaterMarkPosition.LEFT_BOTTOM -> GlCustomWatermarkFilter.Position.LEFT_BOTTOM
+            WaterMarkPosition.RIGHT_BOTTOM -> GlCustomWatermarkFilter.Position.RIGHT_BOTTOM
+            WaterMarkPosition.RIGHT_TOP -> GlCustomWatermarkFilter.Position.RIGHT_TOP
+        }
+        this.filter =
+            GlCustomWatermarkFilter(bitmap, position, waterMarkSizePercentage, waterMarkPadding)
     }
 
     /**

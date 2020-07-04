@@ -45,7 +45,11 @@ dependencies {
  videoTrimmerView.setMinDurationInMs(1 * 1000)
  videoTrimmerView.setOnK4LVideoListener(this)
  videoTrimmerView.setDestinationFile(trimmedVideoFile)
- videoTrimmerView.setVideoURI(inputVideoUri)
+
+ // make sure the videoTimmerView is drawing before calling this method
+ videoTrimmerView.post {
+   videoTrimmerView.setVideoURI(inputVideoUri)
+ }
  
  // Use this is control the visibility of time duration displayed
  videoTrimmerView.setVideoInformationVisibility(true)
@@ -57,8 +61,11 @@ dependencies {
  // Value should be in the range of -8(X) to 8(X)
  videoTrimmerView.setTimeScale(2) // Default is 1
  
- // use this method to start trimming the selected time frame
+ // Use this method to start trimming the selected time frame
  videoTrimmerView.initiateTrimming()
+
+ // Use this method to draw watermark on the trimmed video
+ videoTrimmerView.setWaterMark(BitmapFactory.decodeResource(resources, R.drawable.text_logo),WaterMarkPosition.RIGHT_BOTTOM,20,20)
 ```
 3. Implement the listener to receive callback
 ```kotlin
