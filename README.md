@@ -9,6 +9,7 @@ This code is built on top of [VideoTrimmer](https://github.com/AndroidDeveloperL
 3. The library used to trim the video is changed to [MP4Composer](https://github.com/MasayukiSuda/Mp4Composer-android) from [MP4Parser](https://github.com/sannies/mp4parser).
 4. VideoTrimmerView is moved into the library for quick and easy setup.
 5. Fixed TimeLineView not getting updated issue when a new video is loaded again.
+6. Added watermark functionality.
 
 # Gradle
 
